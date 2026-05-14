@@ -6,17 +6,21 @@
   <title>Name and Date Export</title>
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f7f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #d1d5db;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
+      color-scheme: dark;
+      --bg: #171a21;
+      --panel: #1f2430;
+      --panel-alt: #232833;
+      --text: #e5e7eb;
+      --muted: #c7d5e0;
+      --border: #2f3541;
+      --accent: #66c0f4;
+      --accent-hover: #8fd6ff;
+      --warn: #ff6b35;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -24,92 +28,197 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
+      padding: 8px;
     }
 
-    .card {
+    .wrap {
       width: 100%;
-      max-width: 420px;
-      background: var(--card);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #ffffff;
+      margin: 0 0 8px;
+    }
+
+    .rule {
+      border: 0;
+      border-top: 1px solid var(--border);
+      margin: 0 0 26px;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #ffffff;
+    }
+
+    .section-copy {
+      margin: 0 0 10px;
+      color: var(--muted);
+      line-height: 1.4;
+      font-size: 0.95rem;
+    }
+
+    .section-copy a,
+    .details-link {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .form-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: var(--panel);
+      margin-bottom: 28px;
+    }
+
+    .form-table td {
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      padding: 12px 10px;
+      vertical-align: middle;
+      background: var(--panel-alt);
     }
 
-    h1 {
-      margin: 0 0 20px;
-      font-size: 1.5rem;
+    .form-table td:nth-child(1) {
+      width: 24%;
+      color: #ffffff;
     }
 
-    .field {
+    .form-table td:nth-child(2) {
+      width: 14%;
+      color: var(--warn);
+      white-space: nowrap;
+    }
+
+    .form-table td:nth-child(3) {
+      width: 62%;
+      color: var(--muted);
+    }
+
+    .input-wrap {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-bottom: 18px;
+      gap: 6px;
     }
 
-    label {
-      font-weight: 700;
-      letter-spacing: 0.02em;
+    .input-note {
+      font-size: 0.9rem;
+      color: var(--muted);
     }
 
     input {
       width: 100%;
-      padding: 12px 14px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 1rem;
-      color: var(--text);
-      background: #fff;
+      max-width: 360px;
+      padding: 9px 10px;
+      border: 1px solid #4b5563;
+      border-radius: 0;
+      font-size: 0.95rem;
+      color: #ffffff;
+      background: #10141b;
+    }
+
+    input::placeholder {
+      color: #93a1b0;
     }
 
     input:focus {
-      outline: 2px solid rgba(37, 99, 235, 0.2);
+      outline: none;
       border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(102, 192, 244, 0.25);
+    }
+
+    .actions {
+      margin-top: 10px;
     }
 
     button {
-      width: 100%;
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 16px;
-      font-size: 1rem;
-      font-weight: 700;
+      border: 1px solid #417a9b;
+      border-radius: 2px;
+      padding: 10px 16px;
+      font-size: 0.95rem;
       cursor: pointer;
-      color: white;
-      background: var(--accent);
+      color: #ffffff;
+      background: linear-gradient(to bottom, #417a9b 0%, #2a475e 100%);
     }
 
     button:hover {
-      background: var(--accent-hover);
+      background: linear-gradient(to bottom, #4b8db2 0%, #31546f 100%);
     }
 
     .hint {
-      margin-top: 12px;
+      margin: 10px 0 0;
       color: var(--muted);
       font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      .form-table,
+      .form-table tbody,
+      .form-table tr,
+      .form-table td {
+        display: block;
+        width: 100% !important;
+      }
+
+      .form-table tr {
+        margin-bottom: 10px;
+      }
+
+      .form-table td:nth-child(2) {
+        border-top: 0;
+        border-bottom: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>Export Form</h1>
+  <main class="wrap">
+    <h1 class="title">Directory of Form Inputs</h1>
+    <hr class="rule" />
 
-    <div class="field">
-      <label for="name">NAME</label>
-      <input id="name" name="name" type="text" placeholder="Enter your name" />
-    </div>
+    <section>
+      <h2 class="section-title">User Information</h2>
+      <p class="section-copy">
+        <a href="#">Form Field Details &amp; Templates</a>
+        - Enter the requested information below, then download a text file containing the labels and values.
+      </p>
 
-    <div class="field">
-      <label for="date">DATE</label>
-      <input id="date" name="date" type="date" readonly />
-    </div>
+      <table class="form-table" aria-label="Form fields">
+        <tbody>
+          <tr>
+            <td>NAME</td>
+            <td>Required</td>
+            <td>
+              <div class="input-wrap">
+                <input id="name" name="name" type="text" placeholder="Enter your name" />
+                <span class="input-note">Type the name you want included in the exported text file <a class="details-link" href="#">See details</a></span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>DATE</td>
+            <td>Required</td>
+            <td>
+              <div class="input-wrap">
+                <input id="date" name="date" type="date" readonly />
+                <span class="input-note">Automatically filled with today's local date <a class="details-link" href="#">See details</a></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-    <button id="downloadBtn" type="button">Download .txt File</button>
-    <p class="hint">The downloaded file will include the labels and the entered values.</p>
+      <div class="actions">
+        <button id="downloadBtn" type="button">Download .txt File</button>
+        <p class="hint">The downloaded file will include NAME and DATE exactly as shown above.</p>
+      </div>
+    </section>
   </main>
 
   <script>
